@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000">
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top">
+  
+  
+  <title>JAVA设计模式—Decorator装饰器 | Duckyrain的博客</title>
+  <meta name="description" content="本文的设计模式列表来源于github上人气比较高的iluwatar/java-design-patterns，包含了23种经典设计模式和很多实际应用中涉及到的模式。 文中涉及到的示例代码可能只抽取了部分进行讲解，如果有本地模拟需求，请参考源码。 “设计模式是程序员在设计应用程序时能够解决场景问题的最佳实现，通过经测试和验证的开发范例，可以提高开发效率。重用设计模式，可有效避免可能因细微问题而导致的">
+<meta name="keywords" content="Java,设计模式,github">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JAVA设计模式—Decorator装饰器">
+<meta property="og:url" content="http://amaging.cn/2018/03/24/JAVA设计模式—Decorator装饰器/index.html">
+<meta property="og:site_name" content="DuckyRain的博客">
+<meta property="og:description" content="本文的设计模式列表来源于github上人气比较高的iluwatar/java-design-patterns，包含了23种经典设计模式和很多实际应用中涉及到的模式。 文中涉及到的示例代码可能只抽取了部分进行讲解，如果有本地模拟需求，请参考源码。 “设计模式是程序员在设计应用程序时能够解决场景问题的最佳实现，通过经测试和验证的开发范例，可以提高开发效率。重用设计模式，可有效避免可能因细微问题而导致的">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-02-13T03:43:30.968Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JAVA设计模式—Decorator装饰器">
+<meta name="twitter:description" content="本文的设计模式列表来源于github上人气比较高的iluwatar/java-design-patterns，包含了23种经典设计模式和很多实际应用中涉及到的模式。 文中涉及到的示例代码可能只抽取了部分进行讲解，如果有本地模拟需求，请参考源码。 “设计模式是程序员在设计应用程序时能够解决场景问题的最佳实现，通过经测试和验证的开发范例，可以提高开发效率。重用设计模式，可有效避免可能因细微问题而导致的">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://amaging.cn/2018/03/24/JAVA设计模式—Decorator装饰器/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="DuckyRain的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+  
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitment@0.0.3/style/default.min.css">
+  
+  
+  
+</head>
+
+
+<body class="main-center theme-purple" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/duckyrain" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">DuckyRain</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">高级Java &amp; 系统架构</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> 北京, 中国</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索">
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech="">
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope="" itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/duckyrain" target="_blank" title="Github" data-toggle="tooltip" data-placement="top"><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/duqiyu2151" target="_blank" title="Weibo" data-toggle="tooltip" data-placement="top"><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://twitter.com/duqiyu2151" target="_blank" title="Twitter" data-toggle="tooltip" data-placement="top"><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="/" target="_blank" title="Facebook" data-toggle="tooltip" data-placement="top"><i class="icon icon-facebook"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle="tooltip" data-placement="top"><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope="" itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/其他/">其他</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/网络/">网络</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/规范/">规范</a><span class="category-list-count">3</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/API/">API</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ElasticSearch/">ElasticSearch</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitLab/">GitLab</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JDK/">JDK</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Logstash/">Logstash</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RESTful/">RESTful</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringBoot/">SpringBoot</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP/">TCP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springboot/">springboot</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/其他/">其他</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码解析/">源码解析</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络/">网络</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/规范/">规范</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a><span class="tag-list-count">6</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/API/" style="font-size: 13px;">API</a> <a href="/tags/ElasticSearch/" style="font-size: 13px;">ElasticSearch</a> <a href="/tags/Git/" style="font-size: 13px;">Git</a> <a href="/tags/GitLab/" style="font-size: 13px;">GitLab</a> <a href="/tags/JDK/" style="font-size: 13.33px;">JDK</a> <a href="/tags/Java/" style="font-size: 14px;">Java</a> <a href="/tags/Logstash/" style="font-size: 13px;">Logstash</a> <a href="/tags/RESTful/" style="font-size: 13px;">RESTful</a> <a href="/tags/SpringBoot/" style="font-size: 13px;">SpringBoot</a> <a href="/tags/TCP/" style="font-size: 13px;">TCP</a> <a href="/tags/github/" style="font-size: 13.67px;">github</a> <a href="/tags/java/" style="font-size: 13px;">java</a> <a href="/tags/springboot/" style="font-size: 13px;">springboot</a> <a href="/tags/其他/" style="font-size: 13.33px;">其他</a> <a href="/tags/源码解析/" style="font-size: 13.33px;">源码解析</a> <a href="/tags/网络/" style="font-size: 13px;">网络</a> <a href="/tags/规范/" style="font-size: 13.33px;">规范</a> <a href="/tags/设计模式/" style="font-size: 13.67px;">设计模式</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">二月 2018</a><span class="archive-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/其他/">其他</a>
+              </p>
+              <p class="item-title">
+                <a href="/2019/02/07/个人VPS搭建教程/" class="title">个人VPS搭建教程</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-02-07T02:30:03.000Z" itemprop="datePublished">2019-02-07</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/规范/">规范</a>
+              </p>
+              <p class="item-title">
+                <a href="/2018/12/15/从零构建一个springboot多模块项目/" class="title">从零构建一个springboot多模块项目</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2018-12-15T13:13:00.000Z" itemprop="datePublished">2018-12-15</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/其他/">其他</a>
+              </p>
+              <p class="item-title">
+                <a href="/2018/07/30/个人工作软件插件汇总/" class="title">个人工作软件/插件汇总</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2018-07-30T12:20:23.000Z" itemprop="datePublished">2018-07-30</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Java/">Java</a>
+              </p>
+              <p class="item-title">
+                <a href="/2018/07/22/基于ElasticSearch的全文检索平台/" class="title">基于Logstash、ElasticSearch的全文检索平台</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2018-07-22T10:20:23.000Z" itemprop="datePublished">2018-07-22</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/网络/">网络</a>
+              </p>
+              <p class="item-title">
+                <a href="/2018/04/22/TCP的11种状态、连接以及断开过程/" class="title">TCP的11种状态、连接以及断开过程</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2018-04-22T13:00:23.000Z" itemprop="datePublished">2018-04-22</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope="" itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <nav id="toc" class="article-toc">
+      <h3 class="toc-title">文章目录</h3>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#作用"><span class="toc-number">1.</span> <span class="toc-text">作用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#适用性"><span class="toc-number">2.</span> <span class="toc-text">适用性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#典型用例"><span class="toc-number">3.</span> <span class="toc-text">典型用例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代码示例"><span class="toc-number">4.</span> <span class="toc-text">代码示例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#类图"><span class="toc-number">5.</span> <span class="toc-text">类图</span></a></li></ol>
+    </nav>
+  </div>
+</aside>
+
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-JAVA设计模式—Decorator装饰器" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      JAVA设计模式—Decorator装饰器
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2018/03/24/JAVA设计模式—Decorator装饰器/" class="article-date">
+	  <time datetime="2018-03-24T12:20:23.000Z" itemprop="datePublished">2018-03-24</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Java/">Java</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link" href="/tags/Java/">Java</a>, <a class="article-tag-link" href="/tags/github/">github</a>, <a class="article-tag-link" href="/tags/设计模式/">设计模式</a>
+  </span>
+
+
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2018/03/24/JAVA设计模式—Decorator装饰器/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <p>本文的设计模式列表来源于github上人气比较高的<a href="https://github.com/iluwatar/java-design-patterns" target="_blank" rel="noopener">iluwatar/java-design-patterns</a>，包含了23种经典设计模式和很多实际应用中涉及到的模式。</p>
+<p>文中涉及到的示例代码可能只抽取了部分进行讲解，如果有本地模拟需求，请参考源码。</p>
+<p><em>“设计模式是程序员在设计应用程序时能够解决场景问题的最佳实现，通过经测试和验证的开发范例，可以提高开发效率。重用设计模式，可有效避免可能因细微问题而导致的重大隐患，同时有助于提升熟悉设计模式的编码人员和架构师对代码的可读性。”</em></p>
+<h2 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h2><p><strong>装饰器模式</strong>（<em>Decorator</em>，也可称作<em>Wrapper</em>），动态地将附加的职责添加到对象中，装饰器给类对象提供了一种灵活的扩展功能。</p>
+<h2 id="适用性"><a href="#适用性" class="headerlink" title="适用性"></a>适用性</h2><ol>
+<li>动态和透明地为单个对象添加功能，且不影响其他对象调用；</li>
+<li>当无法通过继承的方式去扩展对象时。</li>
+</ol>
+<h2 id="典型用例"><a href="#典型用例" class="headerlink" title="典型用例"></a>典型用例</h2><h2 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h2><p>以魔兽世界中的巨魔和加强型巨魔为例，在不改变原始巨魔本身动作的情况下，衍生出加强型巨魔。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 对象定义</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Troll</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">attack</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">getAttackPower</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">fleeBattle</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 原始巨魔（被装饰者）</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SimpleTroll</span> <span class="keyword">implements</span> <span class="title">Troll</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">attack</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        LOGGER.info(<span class="string">"The troll tries to grab you!"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getAttackPower</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">10</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">fleeBattle</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        LOGGER.info(<span class="string">"The troll shrieks in horror and runs away!"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 加强型巨魔（装饰者）</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ClubbedTroll</span> <span class="keyword">implements</span> <span class="title">Troll</span> </span>&#123;</span><br><span class="line">	<span class="comment">// 被装饰对象</span></span><br><span class="line">    <span class="keyword">private</span> Troll decorated;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ClubbedTroll</span><span class="params">(Troll decorated)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.decorated = decorated;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">attack</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        decorated.attack();</span><br><span class="line">        LOGGER.info(<span class="string">"The troll swings at you with a club!"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getAttackPower</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> decorated.getAttackPower() + <span class="number">10</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">fleeBattle</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        decorated.fleeBattle();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 调用示例</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// simple troll</span></span><br><span class="line">    LOGGER.info(<span class="string">"A simple looking troll approaches."</span>);</span><br><span class="line">    Troll troll = <span class="keyword">new</span> SimpleTroll();</span><br><span class="line">    troll.attack();</span><br><span class="line">    troll.fleeBattle();</span><br><span class="line">    LOGGER.info(<span class="string">"Simple troll power &#123;&#125;.\n"</span>, troll.getAttackPower());</span><br><span class="line">    <span class="comment">// change the behavior of the simple troll by adding a decorator</span></span><br><span class="line">    LOGGER.info(<span class="string">"A troll with huge club surprises you."</span>);</span><br><span class="line">    troll = <span class="keyword">new</span> ClubbedTroll(troll);</span><br><span class="line">    troll.attack();</span><br><span class="line">    troll.fleeBattle();</span><br><span class="line">    LOGGER.info(<span class="string">"Clubbed troll power &#123;&#125;.\n"</span>, troll.getAttackPower());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h2>
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://amaging.cn/2018/03/24/JAVA设计模式—Decorator装饰器/" title="JAVA设计模式—Decorator装饰器" target="_blank" rel="external">http://amaging.cn/2018/03/24/JAVA设计模式—Decorator装饰器/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/duckyrain" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/duckyrain" target="_blank"><span class="text-dark">DuckyRain</span><small class="ml-1x">高级Java &amp; 系统架构</small></a></h3>
+        <div></div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom="">
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2018/03/24/JAVA设计模式—Facade外观/" title="JAVA设计模式—Facade外观"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2018/03/21/JAVA设计模式—Singleton单例/" title="JAVA设计模式——Singleton单例"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+    <li class="toggle-toc">
+      <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false" title="文章目录" role="button">
+        <span>[&nbsp;</span><span>文章目录</span>
+        <i class="text-collapsed icon icon-anchor"></i>
+        <i class="text-in icon icon-close"></i>
+        <span>]</span>
+      </a>
+    </li>
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="qq,wechat,facebook,twitter" data-mobile-sites="wechat,qq"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+
+
+</main>
+
+  <footer class="footer" itemscope="" itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/duckyrain" target="_blank" title="Github" data-toggle="tooltip" data-placement="top"><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/duqiyu2151" target="_blank" title="Weibo" data-toggle="tooltip" data-placement="top"><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://twitter.com/duqiyu2151" target="_blank" title="Twitter" data-toggle="tooltip" data-placement="top"><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="/" target="_blank" title="Facebook" data-toggle="tooltip" data-placement="top"><i class="icon icon-facebook"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle="tooltip" data-placement="top"><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script src="/js/plugin.min.js"></script>
+<script src="/js/application.js"></script>
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+
+
+
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+    
+<script src="//cdn.jsdelivr.net/npm/gitment@0.0.3/dist/gitment.browser.min.js"></script>
+<script>
+var gitment = new Gitment({
+  // id默认为当前页面url，如果url后带参数或锚点，gitment要重新初始化
+  // https://github.com/imsun/gitment/issues/55
+  // 解决方案：id:window.location.pathname,或者将id设置为当前页面标题
+  id: 'JAVA设计模式—Decorator装饰器', 
+  owner: 'duckyrain', // 可以是你的GitHub用户名，也可以是github id
+  repo: 'duckyrain.github.io',
+  oauth: {
+    client_id: '28f5a7640473e0e2fd40',
+    client_secret: 'd9b99a7c8a903495c5c567222e94d02e0a9be7dc',
+  }
+})
+gitment.render('comments')
+</script>
+
+
+
+
+
+
+
+
+
+</body>
+</html>

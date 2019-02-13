@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000">
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top">
+  
+  
+  <title>个人VPS搭建教程 | Duckyrain的博客</title>
+  <meta name="description" content="本文VPS服务器使用CentOS7，文明上网服务端使用shadowsocks。VPS购买流程这里不做介绍。 安装shadowsocks服务123456# 安装python工具yum install python-setuptools &amp;amp;&amp;amp; easy_install pip -y# 安装ssserverpip install shadowsocks# 注意定期更新pip instal">
+<meta name="keywords" content="其他">
+<meta property="og:type" content="article">
+<meta property="og:title" content="个人VPS搭建教程">
+<meta property="og:url" content="http://amaging.cn/2019/02/07/个人VPS搭建教程/index.html">
+<meta property="og:site_name" content="DuckyRain的博客">
+<meta property="og:description" content="本文VPS服务器使用CentOS7，文明上网服务端使用shadowsocks。VPS购买流程这里不做介绍。 安装shadowsocks服务123456# 安装python工具yum install python-setuptools &amp;amp;&amp;amp; easy_install pip -y# 安装ssserverpip install shadowsocks# 注意定期更新pip instal">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-02-13T03:45:25.309Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="个人VPS搭建教程">
+<meta name="twitter:description" content="本文VPS服务器使用CentOS7，文明上网服务端使用shadowsocks。VPS购买流程这里不做介绍。 安装shadowsocks服务123456# 安装python工具yum install python-setuptools &amp;amp;&amp;amp; easy_install pip -y# 安装ssserverpip install shadowsocks# 注意定期更新pip instal">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://amaging.cn/2019/02/07/个人VPS搭建教程/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="DuckyRain的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+  
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitment@0.0.3/style/default.min.css">
+  
+  
+  
+</head>
+
+
+<body class="main-center theme-purple" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/duckyrain" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">DuckyRain</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">高级Java &amp; 系统架构</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> 北京, 中国</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索">
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech="">
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope="" itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/duckyrain" target="_blank" title="Github" data-toggle="tooltip" data-placement="top"><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/duqiyu2151" target="_blank" title="Weibo" data-toggle="tooltip" data-placement="top"><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://twitter.com/duqiyu2151" target="_blank" title="Twitter" data-toggle="tooltip" data-placement="top"><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="/" target="_blank" title="Facebook" data-toggle="tooltip" data-placement="top"><i class="icon icon-facebook"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle="tooltip" data-placement="top"><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope="" itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/其他/">其他</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/网络/">网络</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/规范/">规范</a><span class="category-list-count">3</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/API/">API</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ElasticSearch/">ElasticSearch</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitLab/">GitLab</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JDK/">JDK</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Logstash/">Logstash</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RESTful/">RESTful</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringBoot/">SpringBoot</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP/">TCP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springboot/">springboot</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/其他/">其他</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码解析/">源码解析</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络/">网络</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/规范/">规范</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a><span class="tag-list-count">6</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/API/" style="font-size: 13px;">API</a> <a href="/tags/ElasticSearch/" style="font-size: 13px;">ElasticSearch</a> <a href="/tags/Git/" style="font-size: 13px;">Git</a> <a href="/tags/GitLab/" style="font-size: 13px;">GitLab</a> <a href="/tags/JDK/" style="font-size: 13.33px;">JDK</a> <a href="/tags/Java/" style="font-size: 14px;">Java</a> <a href="/tags/Logstash/" style="font-size: 13px;">Logstash</a> <a href="/tags/RESTful/" style="font-size: 13px;">RESTful</a> <a href="/tags/SpringBoot/" style="font-size: 13px;">SpringBoot</a> <a href="/tags/TCP/" style="font-size: 13px;">TCP</a> <a href="/tags/github/" style="font-size: 13.67px;">github</a> <a href="/tags/java/" style="font-size: 13px;">java</a> <a href="/tags/springboot/" style="font-size: 13px;">springboot</a> <a href="/tags/其他/" style="font-size: 13.33px;">其他</a> <a href="/tags/源码解析/" style="font-size: 13.33px;">源码解析</a> <a href="/tags/网络/" style="font-size: 13px;">网络</a> <a href="/tags/规范/" style="font-size: 13.33px;">规范</a> <a href="/tags/设计模式/" style="font-size: 13.67px;">设计模式</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">二月 2018</a><span class="archive-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/其他/">其他</a>
+              </p>
+              <p class="item-title">
+                <a href="/2019/02/07/个人VPS搭建教程/" class="title">个人VPS搭建教程</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-02-07T02:30:03.000Z" itemprop="datePublished">2019-02-07</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/规范/">规范</a>
+              </p>
+              <p class="item-title">
+                <a href="/2018/12/15/从零构建一个springboot多模块项目/" class="title">从零构建一个springboot多模块项目</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2018-12-15T13:13:00.000Z" itemprop="datePublished">2018-12-15</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/其他/">其他</a>
+              </p>
+              <p class="item-title">
+                <a href="/2018/07/30/个人工作软件插件汇总/" class="title">个人工作软件/插件汇总</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2018-07-30T12:20:23.000Z" itemprop="datePublished">2018-07-30</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Java/">Java</a>
+              </p>
+              <p class="item-title">
+                <a href="/2018/07/22/基于ElasticSearch的全文检索平台/" class="title">基于Logstash、ElasticSearch的全文检索平台</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2018-07-22T10:20:23.000Z" itemprop="datePublished">2018-07-22</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/网络/">网络</a>
+              </p>
+              <p class="item-title">
+                <a href="/2018/04/22/TCP的11种状态、连接以及断开过程/" class="title">TCP的11种状态、连接以及断开过程</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2018-04-22T13:00:23.000Z" itemprop="datePublished">2018-04-22</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope="" itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <nav id="toc" class="article-toc">
+      <h3 class="toc-title">文章目录</h3>
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#安装shadowsocks服务"><span class="toc-number">1.</span> <span class="toc-text">安装shadowsocks服务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#优化加速"><span class="toc-number">2.</span> <span class="toc-text">优化加速</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置多用户"><span class="toc-number">3.</span> <span class="toc-text">配置多用户</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#服务启动"><span class="toc-number">4.</span> <span class="toc-text">服务启动</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#端口防火墙配置"><span class="toc-number">5.</span> <span class="toc-text">端口防火墙配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#自动启动脚本配置"><span class="toc-number">6.</span> <span class="toc-text">自动启动脚本配置</span></a></li></ol>
+    </nav>
+  </div>
+</aside>
+
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-个人VPS搭建教程" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      个人VPS搭建教程
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2019/02/07/个人VPS搭建教程/" class="article-date">
+	  <time datetime="2019-02-07T02:30:03.000Z" itemprop="datePublished">2019-02-07</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/其他/">其他</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link" href="/tags/其他/">其他</a>
+  </span>
+
+
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/02/07/个人VPS搭建教程/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <p>本文VPS服务器使用CentOS7，文明上网服务端使用shadowsocks。VPS购买流程这里不做介绍。</p>
+<h3 id="安装shadowsocks服务"><a href="#安装shadowsocks服务" class="headerlink" title="安装shadowsocks服务"></a>安装shadowsocks服务</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 安装python工具</span><br><span class="line">yum install python-setuptools &amp;&amp; easy_install pip -y</span><br><span class="line"># 安装ssserver</span><br><span class="line">pip install shadowsocks</span><br><span class="line"># 注意定期更新</span><br><span class="line">pip install --upgrade shadowsocks</span><br></pre></td></tr></table></figure>
+<h3 id="优化加速"><a href="#优化加速" class="headerlink" title="优化加速"></a>优化加速</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 优化加速脚本安装</span><br><span class="line">wget --no-check-certificate https://github.com/teddysun/across/raw/master/bbr.sh</span><br><span class="line">chmod +x bbr.sh</span><br><span class="line">./bbr.sh</span><br></pre></td></tr></table></figure>
+<h3 id="配置多用户"><a href="#配置多用户" class="headerlink" title="配置多用户"></a>配置多用户</h3><p>按个人习惯创建配置文件，如：/opt/soft/shadowsocks/shadowsocks.json</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"server"</span>:<span class="string">"0.0.0.0"</span>,</span><br><span class="line">    <span class="attr">"local_address"</span>:<span class="string">"127.0.0.1"</span>,</span><br><span class="line">    <span class="attr">"local_port"</span>:<span class="number">1080</span>,</span><br><span class="line">    <span class="attr">"port_password"</span>:&#123;</span><br><span class="line">        "9526": "123456", // 端口和密码自定义配置</span><br><span class="line">        "9527": "654321" // 多个用户，创建多组即可</span><br><span class="line">    &#125;,</span><br><span class="line">    "timeout":600,</span><br><span class="line">    "method":"aes-256-cfb"</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="服务启动"><a href="#服务启动" class="headerlink" title="服务启动"></a>服务启动</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 服务启动</span><br><span class="line">ssserver -c /opt/soft/shadowsocks/shadowsocks.json -d start</span><br><span class="line"># 服务暂停</span><br><span class="line">ssserver -c /opt/soft/shadowsocks/shadowsocks.json -d stop</span><br></pre></td></tr></table></figure>
+<h3 id="端口防火墙配置"><a href="#端口防火墙配置" class="headerlink" title="端口防火墙配置"></a>端口防火墙配置</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 防火墙放通指定端口，允许公网访问</span><br><span class="line">firewall-cmd --zone=public --add-port=9526-9527/tcp --permanent</span><br><span class="line"># 重启防火墙</span><br><span class="line">firewall-cmd --reload</span><br><span class="line"># 删除放通的端口</span><br><span class="line">firewall-cmd --zone=public --remove-port=9526-9527/tcp --permanent</span><br></pre></td></tr></table></figure>
+<h3 id="自动启动脚本配置"><a href="#自动启动脚本配置" class="headerlink" title="自动启动脚本配置"></a>自动启动脚本配置</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># /etc/rc.d/rc.local添加开机启动脚本</span><br><span class="line">ssserver -c /opt/soft/shadowsocks/shadowsocks.json -d start</span><br><span class="line"># 修改可执行权限</span><br><span class="line">chmod +x /etc/rc.d/rc.local</span><br></pre></td></tr></table></figure>
+<p>至此，服务端配置完成。客户端自行从github上搜索。</p>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://amaging.cn/2019/02/07/个人VPS搭建教程/" title="个人VPS搭建教程" target="_blank" rel="external">http://amaging.cn/2019/02/07/个人VPS搭建教程/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/duckyrain" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/duckyrain" target="_blank"><span class="text-dark">DuckyRain</span><small class="ml-1x">高级Java &amp; 系统架构</small></a></h3>
+        <div></div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom="">
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    
+    <li class="next">
+      <a href="/2018/12/15/从零构建一个springboot多模块项目/" title="从零构建一个springboot多模块项目"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+    <li class="toggle-toc">
+      <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false" title="文章目录" role="button">
+        <span>[&nbsp;</span><span>文章目录</span>
+        <i class="text-collapsed icon icon-anchor"></i>
+        <i class="text-in icon icon-close"></i>
+        <span>]</span>
+      </a>
+    </li>
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="qq,wechat,facebook,twitter" data-mobile-sites="wechat,qq"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+
+
+</main>
+
+  <footer class="footer" itemscope="" itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/duckyrain" target="_blank" title="Github" data-toggle="tooltip" data-placement="top"><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/duqiyu2151" target="_blank" title="Weibo" data-toggle="tooltip" data-placement="top"><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://twitter.com/duqiyu2151" target="_blank" title="Twitter" data-toggle="tooltip" data-placement="top"><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="/" target="_blank" title="Facebook" data-toggle="tooltip" data-placement="top"><i class="icon icon-facebook"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle="tooltip" data-placement="top"><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script src="/js/plugin.min.js"></script>
+<script src="/js/application.js"></script>
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+
+
+
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+    
+<script src="//cdn.jsdelivr.net/npm/gitment@0.0.3/dist/gitment.browser.min.js"></script>
+<script>
+var gitment = new Gitment({
+  // id默认为当前页面url，如果url后带参数或锚点，gitment要重新初始化
+  // https://github.com/imsun/gitment/issues/55
+  // 解决方案：id:window.location.pathname,或者将id设置为当前页面标题
+  id: '个人VPS搭建教程', 
+  owner: 'duckyrain', // 可以是你的GitHub用户名，也可以是github id
+  repo: 'duckyrain.github.io',
+  oauth: {
+    client_id: '28f5a7640473e0e2fd40',
+    client_secret: 'd9b99a7c8a903495c5c567222e94d02e0a9be7dc',
+  }
+})
+gitment.render('comments')
+</script>
+
+
+
+
+
+
+
+
+
+</body>
+</html>

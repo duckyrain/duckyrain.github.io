@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000">
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top">
+  
+  
+  <title>GitLab版本控制规范参考 | Duckyrain的博客</title>
+  <meta name="description" content="本文基于GitLab进行撰写，根据GitFlow工作流原理，定制相应协同开发规范。 术语定义 GitLab。基于Ruby on Rails开发的应用程序，实现一个自托管的Git项目仓库，可通过Web界面直接访问公开的或私人项目。 GitFlow。基于Git进行开发流程管理的框架，流程化的管理可以使得多人协作时能有效地配合项目流程进行源代码管理。  分支说明 master:主分支，主要用于版本发布，">
+<meta name="keywords" content="Git,GitLab,规范">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GitLab版本控制规范参考">
+<meta property="og:url" content="http://amaging.cn/2018/02/28/GitLab版本控制规范参考/index.html">
+<meta property="og:site_name" content="DuckyRain的博客">
+<meta property="og:description" content="本文基于GitLab进行撰写，根据GitFlow工作流原理，定制相应协同开发规范。 术语定义 GitLab。基于Ruby on Rails开发的应用程序，实现一个自托管的Git项目仓库，可通过Web界面直接访问公开的或私人项目。 GitFlow。基于Git进行开发流程管理的框架，流程化的管理可以使得多人协作时能有效地配合项目流程进行源代码管理。  分支说明 master:主分支，主要用于版本发布，">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://amaging.cn/2018/02/28/GitLab版本控制规范参考/1.png">
+<meta property="og:image" content="http://amaging.cn/2018/02/28/GitLab版本控制规范参考/2.png">
+<meta property="og:image" content="http://amaging.cn/2018/02/28/GitLab版本控制规范参考/3.png">
+<meta property="og:image" content="http://amaging.cn/2018/02/28/GitLab版本控制规范参考/4.png">
+<meta property="og:image" content="http://amaging.cn/2018/02/28/GitLab版本控制规范参考/5.png">
+<meta property="og:image" content="http://amaging.cn/2018/02/28/GitLab版本控制规范参考/6.png">
+<meta property="og:image" content="http://amaging.cn/2018/02/28/GitLab版本控制规范参考/7.png">
+<meta property="og:image" content="http://amaging.cn/2018/02/28/GitLab版本控制规范参考/8.png">
+<meta property="og:image" content="http://amaging.cn/2018/02/28/GitLab版本控制规范参考/9.png">
+<meta property="og:image" content="http://amaging.cn/2018/02/28/GitLab版本控制规范参考/10.png">
+<meta property="og:image" content="http://amaging.cn/2018/02/28/GitLab版本控制规范参考/11.png">
+<meta property="og:image" content="http://amaging.cn/2018/02/28/GitLab版本控制规范参考/12.png">
+<meta property="og:image" content="http://amaging.cn/2018/02/28/GitLab版本控制规范参考/13.png">
+<meta property="og:updated_time" content="2019-02-13T03:43:30.966Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="GitLab版本控制规范参考">
+<meta name="twitter:description" content="本文基于GitLab进行撰写，根据GitFlow工作流原理，定制相应协同开发规范。 术语定义 GitLab。基于Ruby on Rails开发的应用程序，实现一个自托管的Git项目仓库，可通过Web界面直接访问公开的或私人项目。 GitFlow。基于Git进行开发流程管理的框架，流程化的管理可以使得多人协作时能有效地配合项目流程进行源代码管理。  分支说明 master:主分支，主要用于版本发布，">
+<meta name="twitter:image" content="http://amaging.cn/2018/02/28/GitLab版本控制规范参考/1.png">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://amaging.cn/2018/02/28/GitLab版本控制规范参考/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="DuckyRain的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+  
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitment@0.0.3/style/default.min.css">
+  
+  
+  
+</head>
+
+
+<body class="main-center theme-purple" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/duckyrain" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">DuckyRain</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">高级Java &amp; 系统架构</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> 北京, 中国</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索">
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech="">
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope="" itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/duckyrain" target="_blank" title="Github" data-toggle="tooltip" data-placement="top"><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/duqiyu2151" target="_blank" title="Weibo" data-toggle="tooltip" data-placement="top"><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://twitter.com/duqiyu2151" target="_blank" title="Twitter" data-toggle="tooltip" data-placement="top"><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="/" target="_blank" title="Facebook" data-toggle="tooltip" data-placement="top"><i class="icon icon-facebook"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle="tooltip" data-placement="top"><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope="" itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/其他/">其他</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/网络/">网络</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/规范/">规范</a><span class="category-list-count">3</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/API/">API</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ElasticSearch/">ElasticSearch</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitLab/">GitLab</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JDK/">JDK</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Logstash/">Logstash</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RESTful/">RESTful</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringBoot/">SpringBoot</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP/">TCP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springboot/">springboot</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/其他/">其他</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码解析/">源码解析</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络/">网络</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/规范/">规范</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a><span class="tag-list-count">6</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/API/" style="font-size: 13px;">API</a> <a href="/tags/ElasticSearch/" style="font-size: 13px;">ElasticSearch</a> <a href="/tags/Git/" style="font-size: 13px;">Git</a> <a href="/tags/GitLab/" style="font-size: 13px;">GitLab</a> <a href="/tags/JDK/" style="font-size: 13.33px;">JDK</a> <a href="/tags/Java/" style="font-size: 14px;">Java</a> <a href="/tags/Logstash/" style="font-size: 13px;">Logstash</a> <a href="/tags/RESTful/" style="font-size: 13px;">RESTful</a> <a href="/tags/SpringBoot/" style="font-size: 13px;">SpringBoot</a> <a href="/tags/TCP/" style="font-size: 13px;">TCP</a> <a href="/tags/github/" style="font-size: 13.67px;">github</a> <a href="/tags/java/" style="font-size: 13px;">java</a> <a href="/tags/springboot/" style="font-size: 13px;">springboot</a> <a href="/tags/其他/" style="font-size: 13.33px;">其他</a> <a href="/tags/源码解析/" style="font-size: 13.33px;">源码解析</a> <a href="/tags/网络/" style="font-size: 13px;">网络</a> <a href="/tags/规范/" style="font-size: 13.33px;">规范</a> <a href="/tags/设计模式/" style="font-size: 13.67px;">设计模式</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">二月 2018</a><span class="archive-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/其他/">其他</a>
+              </p>
+              <p class="item-title">
+                <a href="/2019/02/07/个人VPS搭建教程/" class="title">个人VPS搭建教程</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-02-07T02:30:03.000Z" itemprop="datePublished">2019-02-07</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/规范/">规范</a>
+              </p>
+              <p class="item-title">
+                <a href="/2018/12/15/从零构建一个springboot多模块项目/" class="title">从零构建一个springboot多模块项目</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2018-12-15T13:13:00.000Z" itemprop="datePublished">2018-12-15</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/其他/">其他</a>
+              </p>
+              <p class="item-title">
+                <a href="/2018/07/30/个人工作软件插件汇总/" class="title">个人工作软件/插件汇总</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2018-07-30T12:20:23.000Z" itemprop="datePublished">2018-07-30</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Java/">Java</a>
+              </p>
+              <p class="item-title">
+                <a href="/2018/07/22/基于ElasticSearch的全文检索平台/" class="title">基于Logstash、ElasticSearch的全文检索平台</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2018-07-22T10:20:23.000Z" itemprop="datePublished">2018-07-22</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/网络/">网络</a>
+              </p>
+              <p class="item-title">
+                <a href="/2018/04/22/TCP的11种状态、连接以及断开过程/" class="title">TCP的11种状态、连接以及断开过程</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2018-04-22T13:00:23.000Z" itemprop="datePublished">2018-04-22</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope="" itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <nav id="toc" class="article-toc">
+      <h3 class="toc-title">文章目录</h3>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#术语定义"><span class="toc-number">1.</span> <span class="toc-text">术语定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分支说明"><span class="toc-number">2.</span> <span class="toc-text">分支说明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#角色说明"><span class="toc-number">3.</span> <span class="toc-text">角色说明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分支开发流程"><span class="toc-number">4.</span> <span class="toc-text">分支开发流程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#项目创建（master）"><span class="toc-number">4.1.</span> <span class="toc-text">项目创建（master）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#项目开发（develop）"><span class="toc-number">4.2.</span> <span class="toc-text">项目开发（develop）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#协同功能开发（feature-）"><span class="toc-number">4.3.</span> <span class="toc-text">协同功能开发（feature/*）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#项目发布（release-）"><span class="toc-number">4.4.</span> <span class="toc-text">项目发布（release-*）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#项目测试（release-）"><span class="toc-number">4.5.</span> <span class="toc-text">项目测试（release-*）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#项目发版（master）"><span class="toc-number">4.6.</span> <span class="toc-text">项目发版（master）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#项目维护（hotfix）"><span class="toc-number">4.7.</span> <span class="toc-text">项目维护（hotfix）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分支开发流程图"><span class="toc-number">5.</span> <span class="toc-text">分支开发流程图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#gitignore模板"><span class="toc-number">6.</span> <span class="toc-text">gitignore模板</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GitLab合并审查"><span class="toc-number">7.</span> <span class="toc-text">GitLab合并审查</span></a></li></ol>
+    </nav>
+  </div>
+</aside>
+
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-GitLab版本控制规范参考" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      GitLab版本控制规范参考
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2018/02/28/GitLab版本控制规范参考/" class="article-date">
+	  <time datetime="2018-02-28T13:00:08.000Z" itemprop="datePublished">2018-02-28</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/规范/">规范</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link" href="/tags/Git/">Git</a>, <a class="article-tag-link" href="/tags/GitLab/">GitLab</a>, <a class="article-tag-link" href="/tags/规范/">规范</a>
+  </span>
+
+
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2018/02/28/GitLab版本控制规范参考/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <p>本文基于GitLab进行撰写，根据GitFlow工作流原理，定制相应协同开发规范。</p>
+<h2 id="术语定义"><a href="#术语定义" class="headerlink" title="术语定义"></a>术语定义</h2><ol>
+<li><strong>GitLab</strong>。基于Ruby on Rails开发的应用程序，实现一个自托管的Git项目仓库，可通过Web界面直接访问公开的或私人项目。</li>
+<li><strong>GitFlow</strong>。基于Git进行开发流程管理的框架，流程化的管理可以使得多人协作时能有效地配合项目流程进行源代码管理。</li>
+</ol>
+<h2 id="分支说明"><a href="#分支说明" class="headerlink" title="分支说明"></a>分支说明</h2><ul>
+<li>master:主分支，主要用于版本发布，只对master角色开放写权限，原则上只允许merge，不允许push。</li>
+<li>develop: 日常开发分支，该分支正常保存开发中的最新代码，对develop角色以上人员开放写权限。</li>
+<li>feature: 具体的功能开发分支，只与develop分支交互，通常以“feature/功能名称”命名，如：feature/user。独立的功能开发可使用该分支，develop分支改动较大的功能，尽量直接在develop分支上进行，避免影响到其他feature分支的开发。</li>
+<li>release: 来源于develop分支，属于master分支前的未测试版，通常以“release-版本号”命名，如：release-1.0.0，只对master、develop角色开放写权限。如：功能开发完成，则将develop分支合并到release分支，测试完成后，则可以合并到master分支，进行正式版本发布。</li>
+<li>hotfix: 线上bug修复分支，通常以“hotfix-版本号”命名。当线上代码出现bug时，基于master分支创建hotfix分支，bug修复完成后，重新合并至master和develop。</li>
+</ul>
+<h2 id="角色说明"><a href="#角色说明" class="headerlink" title="角色说明"></a>角色说明</h2><table>
+<thead>
+<tr>
+<th style="text-align:left">角色</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Owner</td>
+<td style="text-align:left">系统管理员，拥有最高权限</td>
+</tr>
+<tr>
+<td style="text-align:left">Master</td>
+<td style="text-align:left">项目管理员，拥有master和release分支写权限</td>
+</tr>
+<tr>
+<td style="text-align:left">Developer</td>
+<td style="text-align:left">项目开发人员，拥有除master和release外的分支写权限</td>
+</tr>
+<tr>
+<td style="text-align:left">Reporter</td>
+<td style="text-align:left">项目测试人员</td>
+</tr>
+<tr>
+<td style="text-align:left">Guest</td>
+<td style="text-align:left">访客</td>
+</tr>
+</tbody>
+</table>
+<h2 id="分支开发流程"><a href="#分支开发流程" class="headerlink" title="分支开发流程"></a>分支开发流程</h2><h3 id="项目创建（master）"><a href="#项目创建（master）" class="headerlink" title="项目创建（master）"></a>项目创建（master）</h3><ol>
+<li>项目的创建一般在已提前创建好的Group分组中进行，公共项目请勿直接以个人命名空间创建，如下：</li>
+</ol>
+<p><img src="1.png" alt="图1 正确的分组内创建工程"></p>
+<p><img src="2.png" alt="图2 错误的公共项目工程创建"></p>
+<ol start="2">
+<li>选择对应的项目分组后，创建新的工程：</li>
+</ol>
+<p><img src="3.png" alt="图3 工程创建"></p>
+<ol start="3">
+<li>工程创建完成，添加必要的.gitignore文件，避免不同的IDE工程配置或编译后的可执行文件污染版本库，.gitignore内容，可参考<a href="#gitignore模板">gitignore模板</a>。</li>
+</ol>
+<p><img src="4.png" alt="图4 gitignore文件添加"></p>
+<h3 id="项目开发（develop）"><a href="#项目开发（develop）" class="headerlink" title="项目开发（develop）"></a>项目开发（develop）</h3><p>clone一份master主分支，创建develop分支后，即可开始进行项目开发（以下操作均在git工具下直接进行，实际情况下可能更多的是直接通过IDE操作完成，这里不做示例说明）。</p>
+<p><img src="5.png" alt="图5 develop开发分支创建"></p>
+<h3 id="协同功能开发（feature-）"><a href="#协同功能开发（feature-）" class="headerlink" title="协同功能开发（feature/*）"></a>协同功能开发（feature/*）</h3><p>如果涉及到多人分布式功能协同开发，则会用到feature分支，从最新的develop分支创建feature分支，如下图，创建feature/auth鉴权功能分支：</p>
+<p><img src="6.png" alt="图6 feature功能分支创建"></p>
+<h3 id="项目发布（release-）"><a href="#项目发布（release-）" class="headerlink" title="项目发布（release-*）"></a>项目发布（release-*）</h3><p>项目发布前，需要确保测试上线的功能已经合并到develop分支中，同时develop分支也为最新版本。确认develop无误后，可开始创建release分支。如下图，release-1.0.0即为待测试的发布版本。</p>
+<p><img src="7.png" alt="图7 release待测试版本创建"></p>
+<h3 id="项目测试（release-）"><a href="#项目测试（release-）" class="headerlink" title="项目测试（release-*）"></a>项目测试（release-*）</h3><p>项目测试期间，bug修复工作直接在release分支上完成即可，测试完成后，此时的release分支即为最新的版本。将release合并回develop，保证开发分支为最新的代码，同时提交master合并请求（master合并只允许项目管理员操作，合并请求提交可参考<a href="#GitLab合并审查">GitLab合并审查</a>）。</p>
+<p><img src="8.png" alt="图8 release发布版本合并到develop分支"></p>
+<h3 id="项目发版（master）"><a href="#项目发版（master）" class="headerlink" title="项目发版（master）"></a>项目发版（master）</h3><p>由项目管理员将release合并到master主分支，即保证了master主分支的准确性和完整性，完成了项目发版，交由相关人员部署即可。</p>
+<p><img src="9.png" alt="图9 release发布版本合并到master分支"></p>
+<h3 id="项目维护（hotfix）"><a href="#项目维护（hotfix）" class="headerlink" title="项目维护（hotfix）"></a>项目维护（hotfix）</h3><p>当线上代码出现bug时，需基于master分支创建一个hotfix分支，修复后再将hotfix分支合并到master分支并进行发布，同时需将hotfix合并到develop，确保develop的最新。</p>
+<p><img src="10.png" alt="图10 hotfix分支操作流程"></p>
+<h2 id="分支开发流程图"><a href="#分支开发流程图" class="headerlink" title="分支开发流程图"></a>分支开发流程图</h2><p>传播比较广的一张GitFlow流程图，参考：<a href="http://nvie.com/posts/a-successful-git-branching-model/" title="A successful Git branching model" target="_blank" rel="noopener">http://nvie.com/posts/a-successful-git-branching-model/</a></p>
+<p><img src="11.png" alt="图11 分支整体预览图"></p>
+<h2 id="gitignore模板"><a href="#gitignore模板" class="headerlink" title="gitignore模板"></a>gitignore模板</h2><p>github上有很多现成的gitignore模板，如：<a href="https://github.com/github/gitignore" target="_blank" rel="noopener">https://github.com/github/gitignore</a>，这里可根据自身项目需求选择。</p>
+<p>Java模板参考</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"># Operating System Files</span><br><span class="line">.DS_Store</span><br><span class="line">.AppleDouble</span><br><span class="line">.LSOverride</span><br><span class="line">._*</span><br><span class="line">Thumbs.db</span><br><span class="line">ehthumbs.db</span><br><span class="line">[Dd]esktop.ini</span><br><span class="line">$RECYCLE.BIN/</span><br><span class="line"></span><br><span class="line"># Eclipse Project Files</span><br><span class="line">.metadata</span><br><span class="line">tmp/</span><br><span class="line">*.tmp</span><br><span class="line">*.swp</span><br><span class="line">*~.nib</span><br><span class="line">.settings/</span><br><span class="line"></span><br><span class="line"># IntelliJ IDEA Files</span><br><span class="line">.idea/</span><br><span class="line">*.iml</span><br><span class="line">*.ipr</span><br><span class="line">*.iws</span><br><span class="line">out/</span><br><span class="line"></span><br><span class="line"># Build Artifacts</span><br><span class="line">.class</span><br><span class="line">.log</span><br><span class="line">.gradle/</span><br><span class="line">.mvn/</span><br><span class="line">build/</span><br><span class="line">target/</span><br><span class="line">bin/</span><br><span class="line">dependency-reduced-pom.xml</span><br><span class="line"></span><br><span class="line"># Package Files #</span><br><span class="line">*.jar</span><br><span class="line">*.war</span><br><span class="line">*.nar</span><br><span class="line">*.ear</span><br><span class="line">*.zip</span><br><span class="line">*.tar.gz</span><br><span class="line">*.rar</span><br></pre></td></tr></table></figure>
+<h2 id="GitLab合并审查"><a href="#GitLab合并审查" class="headerlink" title="GitLab合并审查"></a>GitLab合并审查</h2><p>项目参与人员较多时，可以通过填写分支合并请求，提交给项目管理员，完成相应的master主分支合并。</p>
+<p><img src="12.png" alt="图12 分支合并申请(1)"></p>
+<p><img src="13.png" alt="图13 分支合并申请(2)"></p>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://amaging.cn/2018/02/28/GitLab版本控制规范参考/" title="GitLab版本控制规范参考" target="_blank" rel="external">http://amaging.cn/2018/02/28/GitLab版本控制规范参考/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/duckyrain" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/duckyrain" target="_blank"><span class="text-dark">DuckyRain</span><small class="ml-1x">高级Java &amp; 系统架构</small></a></h3>
+        <div></div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom="">
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2018/03/13/JDK1.8源码解析—java.util.concurrent.atomic (1)/" title="JDK1.8源码解析——java.util.concurrent.atomic (1)"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2018/02/27/RESTful API接口规范参考/" title="Restful API接口规范参考"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+    <li class="toggle-toc">
+      <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false" title="文章目录" role="button">
+        <span>[&nbsp;</span><span>文章目录</span>
+        <i class="text-collapsed icon icon-anchor"></i>
+        <i class="text-in icon icon-close"></i>
+        <span>]</span>
+      </a>
+    </li>
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="qq,wechat,facebook,twitter" data-mobile-sites="wechat,qq"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+
+
+</main>
+
+  <footer class="footer" itemscope="" itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/duckyrain" target="_blank" title="Github" data-toggle="tooltip" data-placement="top"><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/duqiyu2151" target="_blank" title="Weibo" data-toggle="tooltip" data-placement="top"><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://twitter.com/duqiyu2151" target="_blank" title="Twitter" data-toggle="tooltip" data-placement="top"><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="/" target="_blank" title="Facebook" data-toggle="tooltip" data-placement="top"><i class="icon icon-facebook"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle="tooltip" data-placement="top"><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script src="/js/plugin.min.js"></script>
+<script src="/js/application.js"></script>
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+
+
+
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+    
+<script src="//cdn.jsdelivr.net/npm/gitment@0.0.3/dist/gitment.browser.min.js"></script>
+<script>
+var gitment = new Gitment({
+  // id默认为当前页面url，如果url后带参数或锚点，gitment要重新初始化
+  // https://github.com/imsun/gitment/issues/55
+  // 解决方案：id:window.location.pathname,或者将id设置为当前页面标题
+  id: 'GitLab版本控制规范参考', 
+  owner: 'duckyrain', // 可以是你的GitHub用户名，也可以是github id
+  repo: 'duckyrain.github.io',
+  oauth: {
+    client_id: '28f5a7640473e0e2fd40',
+    client_secret: 'd9b99a7c8a903495c5c567222e94d02e0a9be7dc',
+  }
+})
+gitment.render('comments')
+</script>
+
+
+
+
+
+
+
+
+
+</body>
+</html>
